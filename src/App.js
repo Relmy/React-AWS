@@ -1,7 +1,10 @@
 import React from "react";
+import { Route, Routes } from "react-router-dom";
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 
+import TabNav from "./components/TabNav";
 import Form from "./components/Form";
+import { Box } from "@mui/material";
 
 function App() {
 
@@ -12,7 +15,7 @@ function App() {
         main: '#6200EE',
       },
       secondary: {
-        main: '#6200EE',
+        main: '#FFFFFF',
       },
       text: {
         secondary: 'rgba(0, 0, 0, 0.6)',
@@ -23,8 +26,18 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <h1>bp-sde1</h1>
-      <Form />
+      <Box display={''} justifyContent={'center'}>
+        {/* <TabNav /> */}
+        <TabNav />
+        <br />
+        <Routes>
+          {/* Index path */}
+          <Route path="/" element={<h1>Create User <Form /> </h1>} />
+          <Route path="/list" element={<h1>List Users</h1>} />
+          <Route path="/edit" element={<h1>Edit User</h1>} />
+
+        </Routes>
+      </Box>
     </ThemeProvider>
   );
 }
