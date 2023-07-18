@@ -2,14 +2,19 @@
 
 # dependencies
 /node_modules
+/bp-sde1-app/node_modules
+/jspm_packages
 /.pnp
 .pnp.js
+
+# Serverless directories
+.serverless
 
 # testing
 /coverage
 
 # production
-/build
+/bp-sde1-app/build
 
 # misc
 .DS_Store
@@ -24,3 +29,6 @@ yarn-debug.log*
 yarn-error.log*
 
 .vscode
+
+
+
