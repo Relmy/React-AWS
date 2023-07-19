@@ -5,6 +5,7 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import TabNav from "./components/TabNav";
 import Form from "./components/Form";
 import { Box } from "@mui/material";
+import ListUsers from "./components/ListUsers/ListUsers";
 
 function App() {
 
@@ -22,18 +23,27 @@ function App() {
         primary: 'rgba(0, 0, 0, 0.87)',
       },
     },
+    typography: {
+      body1: {
+        fontSize: 16,
+      },
+      body2: {
+        fontSize: 14,
+        color: '#00000099',
+      },
+    },
   });
 
   return (
     <ThemeProvider theme={theme}>
-      <Box display={''} justifyContent={'center'}>
+      <Box justifyContent={'center'}>
         {/* <TabNav /> */}
         <TabNav />
         <br />
         <Routes>
           {/* Index path */}
-          <Route path="/" element={<h1>Create User <Form /> </h1>} />
-          <Route path="/list" element={<h1>List Users</h1>} />
+          <Route path="/" element={<Form />} />
+          <Route path="/listUsers" element={<ListUsers />} />
           <Route path="/edit" element={<h1>Edit User</h1>} />
 
         </Routes>

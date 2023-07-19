@@ -3,10 +3,25 @@
 import React, { useEffect, useState } from "react";
 import { Box, Grid, TextField, Button, List, ListItem } from "@mui/material";
 
-import { User } from "./User";
+import User from "./User";
 
 const ListUsers = () => {
-  const data = [];
+  const data = [
+    {
+      _id: "1",
+      name: "John Doe",
+      email: "john@email.com",
+      phone: "1231231234",
+      address: "1234 Main St, City, State 12345",
+    },
+    {
+      _id: "2",
+      name: "John Doe",
+      email: "john@email.com",
+      phone: "1231231234",
+      address: "1234 Main St, City, State 12345",
+    },
+  ];
 
   // on mount, fetch all users
   useEffect(() => {
@@ -15,7 +30,7 @@ const ListUsers = () => {
 
   return (
     <Box display='flex' justifyContent='center' alignItems='center'>
-      <List sx={{ maxWidth: 700 }}>
+      <List>
         {/* Users */}
         {data.map((value) => (
           <ListItem divider key={value._id}>

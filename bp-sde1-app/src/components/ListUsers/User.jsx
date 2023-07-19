@@ -1,11 +1,12 @@
 /** @format */
 
 import React, { useEffect, useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 import { Box, Typography, Grid, Button } from "@mui/material";
 
-function User(props) {
-  const history = useHistory();
+const User = (props) => {
+  //const history = useHistory();
 
   // Delete the user
   const handleDelete = async (event) => {
@@ -19,39 +20,36 @@ function User(props) {
     console.log("User updated");
 
     // Redirect to the edit page
-    history.push("/edit");
+    //history.push("/edit");
   };
 
   return (
     <Box display='flex'>
-      <Grid container>
+      <Grid container width={600}>
         {/* User data */}
         <Grid item xs={8}>
-          <Typography>{props.name}</Typography>
-          <Typography style={{ color: "#999" }}>
+          <Typography variant='body1'>{props.name}</Typography>
+          <Typography variant='body2'>
             {props.email} | {props.phone}
           </Typography>
-          <Typography style={{ color: "#999" }}>{props.address}</Typography>
+          <Typography variant='body2'>{props.address}</Typography>
         </Grid>
         {/* Buttons */}
         <Grid item xs={2}>
           <Button variant='outlined' color='primary' onClick={handleEdit}>
-            EDIT
+            Edit
           </Button>
         </Grid>
         <Grid item xs={2}>
-          <Button
-            variant='outlined'
-            color='primary'
-            fullWidth
-            onClick={handleDelete}
-          >
-            DELETE
+          <Button variant='outlined' color='primary' onClick={handleDelete}>
+            Delete
           </Button>
         </Grid>
       </Grid>
     </Box>
   );
-}
+};
+
+User.propTypes = {};
 
 export default User;
