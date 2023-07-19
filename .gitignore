@@ -3,6 +3,10 @@
 # dependencies
 /node_modules
 /bp-sde1-app/node_modules
+lambdas/readUsers/node_modules
+lambdas/createUser/node_modules
+lambdas/deleteUser/node_modules
+lambdas/updateUser/node_modules
 /jspm_packages
 /.pnp
 .pnp.js
