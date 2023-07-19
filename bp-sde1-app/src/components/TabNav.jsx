@@ -11,9 +11,20 @@ const TabNav = () => {
   //Change tab selection
   const handleChange = (event, newValue) => {
     setTabIndex(newValue);
+    //Link tab need to use
   };
 
-  // TabLink ref: https://codesandbox.io/s/xwl794?file=/demo.js
+  function LinkTab(props) {
+    return (
+      <Tab
+        component='a'
+        onClick={(event) => {
+          event.preventDefault();
+        }}
+        {...props}
+      />
+    );
+  }
 
   return (
     <nav>
@@ -25,8 +36,8 @@ const TabNav = () => {
             textColor='inherit'
             indicatorColor='secondary'
           >
-            <Tab label='Create User' />
-            <Tab label='List Users' />
+            <LinkTab label='Create User' href='/' />
+            <LinkTab label='List Users' href='/listUsers' />
           </Tabs>
         </Toolbar>
       </AppBar>
