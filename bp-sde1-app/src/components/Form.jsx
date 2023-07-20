@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from "react-router-dom";
 import { Box, Grid, TextField, Button } from "@mui/material";
+import { useLocation } from "react-router-dom/cjs/react-router-dom.min";
+
 /**
  * Form for creating and editing a user.
  *
@@ -14,21 +16,48 @@ const Form = () => {
     phoneNum: "",
     address: "",
   });
+  //const location = useLocation();
+  //const [location, setLocation] = useState({ state: { id: "" } });
+  //const API_URL = process.env.API_URL;
 
   // Create or update the user
   const handleSubmit = async (event) => {
     event.preventDefault();
     console.log("Form submitted");
     console.log(formData);
+
+    // await fetch(`${API_URL}/save`, {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify(formData),
+    // })
+    //   .then((response) => response.json())
+    //   .catch((error) => console.log("Error:", error));
+
+    //learForm();
   };
 
   // Delete the user
   const handleDelete = async (event) => {
     event.preventDefault();
+
+    // //Delete API call
+    // await fetch(`${API_URL}/${location.state.id}`, { method: "DELETE" })
+    //   .then((response) => response.json())
+    //   .catch((error) => console.log("Error:", error));
+
+    // // TODO:  Ensure that state is cleared
+    // location.state.id = "";
     console.log("User deleted");
+    //clearForm();
   };
 
-  // if editing
+  // Clear the form
+  // const clearForm = () => {
+  //   setFormData(formDefaults);
+  // };
 
   return (
     <Box display='flex' justifyContent='center' alignItems='center'>

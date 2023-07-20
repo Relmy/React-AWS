@@ -1,4 +1,6 @@
 import React from "react";
+import { createBrowserRouter, BrowserRouter } from 'react-router-dom';
+
 import { Route, Routes } from "react-router-dom";
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 
@@ -40,13 +42,14 @@ function App() {
         {/* <TabNav /> */}
         <TabNav />
         <br />
-        <Routes>
-          {/* Index path */}
+        <BrowserRouter>
+          <Routes>
           <Route path="/" element={<Form />} />
           <Route path="/listUsers" element={<ListUsers />} />
           <Route path="/edit" element={<h1>Edit User</h1>} />
 
         </Routes>
+        </BrowserRouter>
       </Box>
     </ThemeProvider>
   );

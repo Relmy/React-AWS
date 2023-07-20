@@ -1,6 +1,6 @@
 import axios from 'axios';
 import config from "../config";
 
-URL = config.API_URL;
+const API_URL = config.API_URL;
 
-export const getUsers = () => axios.get(URL); // get all posts
+export const getUsers = () => axios.get(API_URL); // get all posts

@@ -2,16 +2,22 @@
 
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Box, Typography, Grid, Button } from "@mui/material";
 
 const User = (props) => {
-  //const history = useHistory();
+  //const API_URL = process.env.API_URL;
+  //const navigate = useNavigate();
 
   // Delete the user
   const handleDelete = async (event) => {
     event.preventDefault();
     console.log("User deleted");
+
+    //Delete API call
+    // await fetch(`${API_URL}/${props._id}`, { method: "DELETE" })
+    //   .then((response) => response.json())
+    //   .catch((error) => console.log("Error:", error));
   };
 
   // Edit/update the user
@@ -20,7 +26,7 @@ const User = (props) => {
     console.log("User updated");
 
     // Redirect to the edit page
-    //history.push("/edit");
+    //navigate("/editUser", { state: { id: props._id } });
   };
 
   return (
