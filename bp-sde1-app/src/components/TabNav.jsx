@@ -17,8 +17,10 @@ const TabNav = () => {
   useEffect(() => {
     if (window.location.pathname === "/listUsers") {
       setTabIndex(1);
+    } else {
+      setTabIndex(0);
     }
-  }, [tabIndex]);
+  }, []);
   // if (window.location.pathname === "/listUsers") {
 
   return (

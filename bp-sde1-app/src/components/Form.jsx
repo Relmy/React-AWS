@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
-import { Link } from "react-router-dom";
-import { Box, Grid, TextField, Button } from '@mui/material';
+/** @format */
+
+import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
+import { Box, Grid, TextField, Button } from "@mui/material";
 /**
  * Form for creating and editing a user.
- * 
+ *
  * @returns {JSX.Element}
  */
 const Form = () => {
@@ -17,6 +19,17 @@ const Form = () => {
   const [formData, setFormData] = useState(formDefaults);
   //const url = process.env.AWS_API_URL// || "http://localhost:5000/users;
   const url = "http://localhost:5000/posts";
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.state) {
+      console.log("Location state:", location.state);
+      //setFormData(location.state);
+
+      
+
+    }
+  }, [location]);
 
   // --- Create or update the user ---
   const handleSubmit = async (event) => {
@@ -40,6 +53,8 @@ const Form = () => {
 
     // PUT request to update an existing user
 
+    // set useLocation state to empty object
+    location.state = {};
     clearForm();
     //------------------------------
     console.log("Form submitted");
@@ -71,7 +86,7 @@ const Form = () => {
     console.log(formData);
   };
 
-  // --- Clear form --- 
+  // --- Clear form ---
   const clearForm = () => {
     setFormData(formDefaults);
   };
@@ -163,6 +178,6 @@ const Form = () => {
       </Box>
     </Box>
   );
-}
+};
 
-export default Form
+export default Form;

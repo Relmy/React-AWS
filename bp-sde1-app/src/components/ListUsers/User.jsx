@@ -2,12 +2,15 @@
 
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Box, Typography, Grid, Button } from "@mui/material";
+
+// TODO Add refresh after delete
 
 const User = (props) => {
   //const history = useHistory();
   const url = "http://localhost:5000/posts";
+  const navigate = useNavigate();
 
   // Delete the user
   const handleDelete = async (event) => {
@@ -36,10 +39,10 @@ const User = (props) => {
   // Edit/update the user
   const handleEdit = async (event) => {
     event.preventDefault();
-    console.log("User updated");
+    console.log("Update user with id:", props._id);
 
     // Redirect to the edit page
-    //history.push("/edit");
+    navigate("/", { state: { userProps: props }});
   };
 
   return (
@@ -55,6 +58,7 @@ const User = (props) => {
         </Grid>
         {/* Buttons */}
         <Grid item xs={2}>
+          {/* <Button variant='outlined' color='primary' component={Link} to='/' state={{id : props._id}}> */}
           <Button variant='outlined' color='primary' onClick={handleEdit}>
             Edit
           </Button>
