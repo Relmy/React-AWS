@@ -71,7 +71,7 @@ const Form = () => {
     console.log(formData);
   };
 
-  // Clear form
+  // --- Clear form --- 
   const clearForm = () => {
     setFormData(formDefaults);
   };

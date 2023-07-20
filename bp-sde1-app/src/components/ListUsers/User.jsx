@@ -7,11 +7,30 @@ import { Box, Typography, Grid, Button } from "@mui/material";
 
 const User = (props) => {
   //const history = useHistory();
+  const url = "http://localhost:5000/posts";
 
   // Delete the user
   const handleDelete = async (event) => {
     event.preventDefault();
+
+    // --- Delete API call ---
+    //await fetch(`${url}/${location.state.id}`, { method: "DELETE" })
+    await fetch(url, {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(props.id),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Success:", data);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+
+    //------------------------------
     console.log("User deleted");
+    console.log("Item props:", props);
   };
 
   // Edit/update the user
@@ -50,6 +69,12 @@ const User = (props) => {
   );
 };
 
-User.propTypes = {};
+User.propTypes = {
+  _id: PropTypes.string.isRequired,
+  name: PropTypes.string,
+  email: PropTypes.string,
+  phone: PropTypes.string,
+  address: PropTypes.string,
+};
 
 export default User;

@@ -21,6 +21,19 @@ const ListUsers = () => {
       phone: "1231231234",
       address: "1234 Main St, City, State 12345",
     },
+    {
+      _id: "3",
+      name: "John Doe",
+      email: "john@email.com",
+      phone: "",
+      address: "1234 Main St, City, State 12345",
+    },
+    {
+      _id: "5",
+      name: "John Doe",
+      email: "john@email.com",
+      phone: "1231231234",
+    },
   ];
 
   // on mount, fetch all users
