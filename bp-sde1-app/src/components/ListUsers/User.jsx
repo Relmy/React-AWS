@@ -42,7 +42,7 @@ const User = (props) => {
     console.log("Update user with id:", props._id);
 
     // Redirect to the edit page
-    navigate("/", { state: { userProps: props }});
+    navigate('/id/'+props._id);
   };
 
   return (

@@ -1,7 +1,7 @@
 /** @format */
 
 import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { Box, Grid, TextField, Button } from "@mui/material";
 /**
  * Form for creating and editing a user.
@@ -19,17 +19,26 @@ const Form = () => {
   const [formData, setFormData] = useState(formDefaults);
   //const url = process.env.AWS_API_URL// || "http://localhost:5000/users;
   const url = "http://localhost:5000/posts";
-  const location = useLocation();
+  const { u_id } = useParams();
 
   useEffect(() => {
-    if (location.state) {
-      console.log("Location state:", location.state);
-      //setFormData(location.state);
-
-      
-
+    // Populate form with user data if u_id is present
+    if (u_id) { 
+      console.log("Params u_id:", u_id);
+      // --- Fetch user data ---
+      fetch(`${url}/${u_id}`)
+        .then((response) => response.json())
+        .then((data) => {
+          console.log("User data:", data);
+          //setFormData(data);
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
     }
-  }, [location]);
+  }, [u_id]);
+
+
 
   // --- Create or update the user ---
   const handleSubmit = async (event) => {
@@ -53,8 +62,6 @@ const Form = () => {
 
     // PUT request to update an existing user
 
-    // set useLocation state to empty object
-    location.state = {};
     clearForm();
     //------------------------------
     console.log("Form submitted");
@@ -66,7 +73,6 @@ const Form = () => {
     event.preventDefault();
 
     // --- Delete API call ---
-    //await fetch(`${url}/${location.state.id}`, { method: "DELETE" })
     await fetch(url, {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },

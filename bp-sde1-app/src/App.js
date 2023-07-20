@@ -42,10 +42,11 @@ function App() {
         <br />
         <Routes>
           {/* Index path */}
-          <Route path="/" element={<Form />} />
           <Route path="/listUsers" element={<ListUsers />} />
-          <Route path="/edit" element={<h1>Edit User</h1>} />
-
+          <Route path="/">
+            <Route index element={<Form />} />
+            <Route path="id/:u_id" element={<Form />} />
+          </Route> 
         </Routes>
       </Box>
     </ThemeProvider>
