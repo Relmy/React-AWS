@@ -52,7 +52,7 @@ const User = (props) => {
         <Grid item xs={8}>
           <Typography variant='body1'>{props.name}</Typography>
           <Typography variant='body2'>
-            {props.email} | {props.phone}
+            {props.email} | {props.phoneNum}
           </Typography>
           <Typography variant='body2'>{props.address}</Typography>
         </Grid>
@@ -77,7 +77,7 @@ User.propTypes = {
   _id: PropTypes.string.isRequired,
   name: PropTypes.string,
   email: PropTypes.string,
-  phone: PropTypes.string,
+  phoneNum: PropTypes.string,
   address: PropTypes.string,
 };
 

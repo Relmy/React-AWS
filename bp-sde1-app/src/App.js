@@ -46,6 +46,7 @@ function App() {
           <Route path="/">
             <Route index element={<Form />} />
             <Route path="id/:u_id" element={<Form />} />
+            <Route path="*" element={<Form />} />
           </Route> 
         </Routes>
       </Box>

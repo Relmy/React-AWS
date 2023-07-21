@@ -23,44 +23,61 @@ const Form = () => {
 
   useEffect(() => {
     // Populate form with user data if u_id is present
-    if (u_id) { 
-      console.log("Params u_id:", u_id);
-      // --- Fetch user data ---
-      fetch(`${url}/${u_id}`)
-        .then((response) => response.json())
-        .then((data) => {
-          console.log("User data:", data);
-          //setFormData(data);
-        })
-        .catch((error) => {
-          console.error("Error:", error);
-        });
+    if (u_id) {
+      getUser(u_id);
     }
   }, [u_id]);
 
+  const getUser = async (u_id) => {
+    console.log("Editing user data ...");
 
+    const data = await fetch(
+      "https://lh0w88f5h4.execute-api.ca-central-1.amazonaws.com/dev/id?id=" +
+        u_id
+    )
+      .then((res) => res.json())
+      .catch((err) => console.log(err));
+
+    // Populate form with user data
+    setFormData(data);
+  };
+ 
 
   // --- Create or update the user ---
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     // --- Fetch API calls ---
-
-    // POST request to create a new user
-    await fetch(url, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(formData),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("Success:", data);
+    if (u_id) {
+      // PUT request to update an existing user
+      await fetch(url, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
       })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
-
-    // PUT request to update an existing user
+        .then((response) => response.json())
+        .then((data) => {
+          console.log("Success:", data);
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+    } else {
+      // POST request to create a new user
+      await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log("Success:", data);
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+    }
+    
 
     clearForm();
     //------------------------------
