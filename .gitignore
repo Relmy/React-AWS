@@ -3,6 +3,7 @@
 # dependencies
 /node_modules
 /bp-sde1-app/node_modules
+/backend/*/node_modules
 lambdas/readUsers/node_modules
 lambdas/createUser/node_modules
 lambdas/deleteUser/node_modules
