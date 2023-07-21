@@ -3,6 +3,10 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Box, Grid, TextField, Button } from "@mui/material";
+import IconButton from "@mui/material/IconButton";
+import InputAdornment from "@mui/material/InputAdornment";
+import SearchIcon from "@mui/icons-material/Search";
+
 /**
  * Form for creating and editing a user.
  *
@@ -17,10 +21,11 @@ const Form = () => {
     address: "",
   };
   const [formData, setFormData] = useState(formDefaults);
+  const [showMap, setShowMap] = useState(false);
   const navigate = useNavigate();
   //const url = process.env.AWS_API_URL// || "http://localhost:5000/users;
-  const url = "http://localhost:5000/posts";
   const { u_id } = useParams();
+  const MAPS_API = process.env.REACT_APP_MAPS_API_KEY;
 
   useEffect(() => {
     // Populate form with user data if u_id is present
@@ -172,6 +177,19 @@ const Form = () => {
               onChange={(event) =>
                 setFormData({ ...formData, address: event.target.value })
               }
+              // InputProps={{
+              //   endAdornment: (
+              //     <InputAdornment position='end'>
+              //       <IconButton
+              //         type='button'
+              //         aria-label='search'
+              //         onClick={setShowMap(!showMap)}
+              //       >
+              //         <SearchIcon />
+              //       </IconButton>
+              //     </InputAdornment>
+              //   ),
+              // }}
             />
           </Grid>
           <br />
@@ -199,9 +217,16 @@ const Form = () => {
         </Grid>
       </form>
       {/* Google Maps */}
-      <Box display='flex' justifyContent='center' alignItems='center'>
-        {/* ref: https://developers.google.com/maps/documentation/embed/embedding-map#search_mode */}
-      </Box>
+      {/* ref: https://developers.google.com/maps/documentation/embed/embedding-map#search_mode */}
+      {/* {showMap ? (
+        <Box display='flex' justifyContent='center' alignItems='center'>
+          <iframe
+            title='Google Maps'
+            loading='lazy'
+            src={`https://www.google.com/maps/embed/v1/place?key=${MAPS_API}&q=${formData.address}`}
+          ></iframe>
+        </Box>
+      ) : null} */}
     </Box>
   );
 };
