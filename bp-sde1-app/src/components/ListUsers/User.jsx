@@ -8,8 +8,6 @@ import { Box, Typography, Grid, Button } from "@mui/material";
 // TODO Add refresh after delete
 
 const User = (props) => {
-  //const history = useHistory();
-  const url = "http://localhost:5000/posts";
   const navigate = useNavigate();
 
   // Delete the user
@@ -17,12 +15,14 @@ const User = (props) => {
     event.preventDefault();
 
     // --- Delete API call ---
-    //await fetch(`${url}/${location.state.id}`, { method: "DELETE" })
-    await fetch(url, {
-      method: "DELETE",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(props.id),
-    })
+    await fetch(
+      "https://lh0w88f5h4.execute-api.ca-central-1.amazonaws.com/dev/",
+      {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id: props.id }),
+      }
+    )
       .then((response) => response.json())
       .then((data) => {
         console.log("Success:", data);
@@ -42,7 +42,7 @@ const User = (props) => {
     console.log("Update user with id:", props._id);
 
     // Redirect to the edit page
-    navigate('/id/'+props._id);
+    navigate("/id/" + props._id);
   };
 
   return (
@@ -58,7 +58,6 @@ const User = (props) => {
         </Grid>
         {/* Buttons */}
         <Grid item xs={2}>
-          {/* <Button variant='outlined' color='primary' component={Link} to='/' state={{id : props._id}}> */}
           <Button variant='outlined' color='primary' onClick={handleEdit}>
             Edit
           </Button>

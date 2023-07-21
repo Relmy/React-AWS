@@ -1,7 +1,7 @@
 /** @format */
 
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { Box, Grid, TextField, Button } from "@mui/material";
 /**
  * Form for creating and editing a user.
@@ -17,6 +17,7 @@ const Form = () => {
     address: "",
   };
   const [formData, setFormData] = useState(formDefaults);
+  const navigate = useNavigate();
   //const url = process.env.AWS_API_URL// || "http://localhost:5000/users;
   const url = "http://localhost:5000/posts";
   const { u_id } = useParams();
@@ -29,8 +30,7 @@ const Form = () => {
   }, [u_id]);
 
   const getUser = async (u_id) => {
-    console.log("Editing user data ...");
-
+    // --- Get API call ---
     const data = await fetch(
       "https://lh0w88f5h4.execute-api.ca-central-1.amazonaws.com/dev/id?id=" +
         u_id
@@ -41,7 +41,6 @@ const Form = () => {
     // Populate form with user data
     setFormData(data);
   };
- 
 
   // --- Create or update the user ---
   const handleSubmit = async (event) => {
@@ -50,38 +49,37 @@ const Form = () => {
     // --- Fetch API calls ---
     if (u_id) {
       // PUT request to update an existing user
-      await fetch(url, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      })
+      await fetch(
+        "https://lh0w88f5h4.execute-api.ca-central-1.amazonaws.com/dev/save",
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formData),
+        }
+      )
         .then((response) => response.json())
-        .then((data) => {
-          console.log("Success:", data);
-        })
         .catch((error) => {
           console.error("Error:", error);
         });
+      console.log("User updated");
     } else {
       // POST request to create a new user
-      await fetch(url, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      })
+      await fetch(
+        "https://lh0w88f5h4.execute-api.ca-central-1.amazonaws.com/dev/save",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formData),
+        }
+      )
         .then((response) => response.json())
-        .then((data) => {
-          console.log("Success:", data);
-        })
         .catch((error) => {
           console.error("Error:", error);
         });
+      console.log("User created");
     }
-    
 
     clearForm();
-    //------------------------------
-    console.log("Form submitted");
     console.log(formData);
   };
 
@@ -89,16 +87,20 @@ const Form = () => {
   const handleDelete = async (event) => {
     event.preventDefault();
 
+    if (!u_id) {
+      console.log("No user to delete");
+      return;
+    }
     // --- Delete API call ---
-    await fetch(url, {
-      method: "DELETE",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(formData),
-    })
+    await fetch(
+      "https://lh0w88f5h4.execute-api.ca-central-1.amazonaws.com/dev/",
+      {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id: u_id }),
+      }
+    )
       .then((response) => response.json())
-      .then((data) => {
-        console.log("Success:", data);
-      })
       .catch((error) => {
         console.error("Error:", error);
       });
@@ -112,6 +114,7 @@ const Form = () => {
   // --- Clear form ---
   const clearForm = () => {
     setFormData(formDefaults);
+    navigate("/");
   };
 
   return (

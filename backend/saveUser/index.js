@@ -38,29 +38,44 @@ exports.handler = async (event, context) => {
     },
   ];
 
+  if (!event.body) {
+    return {
+      statusCode: 400,
+      body: "invalid request, you are missing the parameter body",
+    };
+  }
+
+  const body = JSON.parse(event.body)
   // If POST request, create new user
   if (event.httpMethod === "POST") {
     // Get new user data from request body
-    const newUser = JSON.parse(event.body)
-    console.log("New user: ", newUser)
+    const newUser = body
+    // Add new user 
+    users.push(newUser)
+    // insertOne(newUser)
   } 
   if (event.httpMethod === "PUT") {
     // Get updated user data from request body
-    const updatedUser = JSON.parse(event.body)
-    console.log("Updated user: ", updatedUser)
+    const _id = body._id
+    const updatedUser = body
 
-    // Find user in users array
+    // Find user by id 
     const user = users.find(user => user._id === _id)
+
+    users.pop(user)
+    users.push(updatedUser)
+
+    // .updateOne({ _id: id }, { $set: updatedUser })
 
   }
 
-  response = {
+  const response = {
     statusCode: 200,
     headers: {
       "Content-Type": "application/json",
       "Access-Control-Allow-Origin": "*"
     },
-    body: JSON.stringify(user),
+    body: JSON.stringify(body),
   }
 
   return response;
